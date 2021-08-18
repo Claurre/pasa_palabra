@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Proyecto Quiz</title>
+  </head>
+
+  <body>
+    <div class="container"> <!---->
+      <div class="row";">
+        {% if abecedario %}
+          {% for letra in abecedario %}
+            {% if letra != pregunta.letra %}
+              <div class="col-3 col-sm-2 col-md-1">
+                <article class="card">
+                  <div class="card-body" style="background-color: royalblue;">
+                  <h3> {{letra}} </h3>
+                  </div>
+                </article>
+              </div>
+            {% else %}
+              <div class="col-3 col-sm-2 col-md-1">
+                <article class="card ">
+                  <div class="card-body" style="background-color: goldenrod;">
+                  <h3> {{letra}} </h3>
+                  </div>
+                </article>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+          <div class="row";">
+            <div class="col-12 p-2">
+              <article class="card bg-primary h-100">
+                <div class="card-body">
+                  <h3> {{pregunta.pregunta}} </h3>
+                </div>
+              </article>
+            </div>
+          <div class="col-12 p-2">
+            <article class="card bg-primary h-100">
+              <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Escriba la respuesta</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Responder</button>
+                    <button type="submit" class="btn btn-primary">Pasa palabra</button>
+                </form>
+              </div>
+            </article>
+          </div>
+        </div>
+    </div>  
+  </body>
