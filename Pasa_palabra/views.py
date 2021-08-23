@@ -55,14 +55,46 @@ def juego_visual(request, letra):
     abecedario=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
     
     preguntas=preparar_preguntas(abecedario)
+    """externo=open("F:\inform\pip\proyecto_final\Pasa_palabra\Pasa_palabra\Templates\juego.html")"""
+    externo=loader.get_template("juego.html")
+    #plt=Template(externo.read())
+    #externo.close
+    
+    i=abecedario.index(letra)
+    pregunta=preguntas[i]
+
+    """ctx=Context({"pregunta":pregunta, "abecedario":abecedario})"""
+    #documento=plt.render(ctx)
+    documento=externo.render({"pregunta":pregunta, "abecedario":abecedario})
+    return HttpResponse(documento)
+
+
+
+
+def juego_inicio(request):
+    abecedario=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
+    preguntas=preparar_preguntas(abecedario)
+    
+    """try
+        respuesta=request.GET
+        
+        pregunta=preguntas[1]
+        
+
+    except
+        pregunta=preguntas[0]"""
+
+    
+    
     externo=open("F:\inform\pip\proyecto_final\Pasa_palabra\Pasa_palabra\Templates\juego.html")
     plt=Template(externo.read())
     externo.close
-    i=abecedario.index(letra)
-    pregunta=preguntas[i]
+    pregunta=preguntas[0]
 
     ctx=Context({"pregunta":pregunta, "abecedario":abecedario})
     documento=plt.render(ctx)
     return HttpResponse(documento)
+
+   
 
 
