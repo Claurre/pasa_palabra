@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', menu_inicio),
     path('juega/<str:letra>', juego_visual),
-    path('juega/A', juego_inicio), 
+    path('juega/', juego_inicio), 
 ]

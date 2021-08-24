@@ -3,6 +3,7 @@ import datetime
 from django.template import Template, Context
 from django.template import loader
 from django.shortcuts import render
+from juegoBD.models import Pregunta
 """este código es provisorio y va a cambiar"""
 
 def menu_inicio (request):
@@ -14,6 +15,7 @@ def menu_inicio (request):
     documento=externo.render(ctx)"""
     documento=externo.render({"Temas":temas})
     return HttpResponse(documento)
+
 
 #clase pregunta temporal hasta haber base de datos
 class Pregunta(object):
@@ -34,11 +36,20 @@ class Pregunta(object):
         s = s.replace(a, b).replace(a.upper(), b.upper())
     return s"""
 
-def preparar_preguntas(abecedario):
-    preguntas=[]
-    for letra in abecedario:
-        preguntas.append(Pregunta("Pregunta de prueba, la respuesta es 'probando'.","probando",letra))
-    return preguntas
+def preparar_preguntas():
+
+    lista_preguntas=[]
+    abecedario=[]
+        
+    items=preguntas.objects.all()
+    for item in items:
+        pregunta=item.texto
+        respuesta=item.respuesta
+        letra=item.letra
+        abecedario.append(item.letra)
+        lista_preguntas.append(pregunta(preg,respuesta,letra))
+
+    return [lista_preguntas,abecedario]
 
 def comprobar_rptas(pregunta, rpta):
     """pregunta_normalizada=normalizar(pregunta.pregunta)
@@ -52,9 +63,11 @@ def comprobar_rptas(pregunta, rpta):
 
 
 def juego_visual(request, letra):
-    abecedario=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
+    #abecedario=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
     
-    preguntas=preparar_preguntas(abecedario)
+    preg=preparar_preguntas()
+    preguntas=preg[0]
+    abecedario=preg[1]
     """externo=open("F:\inform\pip\proyecto_final\Pasa_palabra\Pasa_palabra\Templates\juego.html")"""
     externo=loader.get_template("juego.html")
     #plt=Template(externo.read())
@@ -72,8 +85,10 @@ def juego_visual(request, letra):
 
 
 def juego_inicio(request):
-    abecedario=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
-    preguntas=preparar_preguntas(abecedario)
+    #abecedario=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',]
+    preg=preparar_preguntas()
+    preguntas=preg[0]
+    abecedario=preg[1]
     
     """try
         respuesta=request.GET
