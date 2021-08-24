@@ -18,7 +18,7 @@ def menu_inicio (request):
 
 
 #clase pregunta temporal hasta haber base de datos
-class Pregunta(object):
+class preguntas(object):
     def __init__(self, pregunta, respuesta, letra):
         self.pregunta=pregunta
         self.respuesta=respuesta
@@ -41,13 +41,13 @@ def preparar_preguntas():
     lista_preguntas=[]
     abecedario=[]
         
-    items=preguntas.objects.all()
+    items=Pregunta.objects.all()
     for item in items:
         pregunta=item.texto
         respuesta=item.respuesta
         letra=item.letra
         abecedario.append(item.letra)
-        lista_preguntas.append(pregunta(preg,respuesta,letra))
+        lista_preguntas.append(preguntas(pregunta,respuesta,letra))
 
     return [lista_preguntas,abecedario]
 
